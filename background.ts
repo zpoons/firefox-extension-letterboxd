@@ -47,7 +47,7 @@ function onActionClicked() {
 }
 
 /*************************************************************************************************
-* action Click event handler
+* action click event handler
 */
 
 browser.browserAction.onClicked.addListener(() => onActionClicked());
