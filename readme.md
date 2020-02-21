@@ -7,6 +7,4 @@ Based on this bookmarklet: <https://bookmarkify.it/6479>
 ## TODO
 
 * android support
-* better pseudo popup
-* icon copyright ?
-* publish
+* manifest + publish
