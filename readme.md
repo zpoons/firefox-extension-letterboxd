@@ -7,4 +7,5 @@ Based on this bookmarklet: <https://bookmarkify.it/6479>
 ## build
 
 run `npm i`
+
 run `npx tsc` to compile
