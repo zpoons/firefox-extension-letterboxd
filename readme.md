@@ -1,8 +1,11 @@
 # Firefox extension: goto letterboxd
 
-If button is clicked and user is on IMDb website, the extension will open a letterboxd tab for same movie/entry.
+When on a IMDB page the addon enables:
+* a button to redirect to letterboxd page
+* (optional) auto redirect to letterboxd page
 
-Based on this bookmarklet: <https://bookmarkify.it/6479>
+When on a letterboxd page:
+* go to IMDB page (will pause auto redirect for that movie)
 
 ## build
 

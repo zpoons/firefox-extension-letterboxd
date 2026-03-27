@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      min-width: 180px;
+      padding: 12px;
+      margin: 0;
+      font-family: sans-serif;
+    }
+    button {
+      width: 100%;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:disabled {
+      cursor: default;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <button id="go-btn">Go to Letterboxd</button>
+  <label style="display:block; margin-top:8px; font-size:13px; cursor:pointer;">
+    <input type="checkbox" id="new-tab-cb"> open in new tab
+  </label>
+  <label style="display:block; margin-top:4px; font-size:13px; cursor:pointer;">
+    <input type="checkbox" id="auto-redirect-cb"> auto redirect
+  </label>
+  <script src="dist/utilities.js"></script>
+  <script src="dist/popup.js"></script>
+</body>
+</html>
