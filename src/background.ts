@@ -49,6 +49,57 @@ async function handleTabUrlChange(tabId: number, url: string): Promise<void> {
   }
 }
 
+async function handleIconClick(tab: browser.tabs.Tab): Promise<void> {
+  const url = tab.url ?? '';
+  const stored = await browser.storage.local.get(['openInNewTab']);
+  const openInNewTab = stored.openInNewTab !== false;
+
+  if (isLetterboxdPage(url) && tab.id !== undefined) {
+    try {
+      const response = await browser.tabs.sendMessage(tab.id, {type: 'get-imdb-url'}) as {imdbUrl: string | null} | null;
+      const imdbUrl = response?.imdbUrl;
+      if (!imdbUrl) return;
+      const movieId = getMovieId(imdbUrl);
+      if (movieId) await browser.storage.local.set({skipNextRedirectForMovie: movieId});
+      if (openInNewTab) {
+        browser.tabs.create({active: true, url: imdbUrl});
+      } else {
+        browser.tabs.update(tab.id, {url: imdbUrl});
+      }
+    } catch {
+      return;
+    }
+    return;
+  }
+
+  const movieId = getMovieId(url);
+  if (!movieId) return;
+
+  if (openInNewTab) {
+    browser.tabs.create({active: true, url: toLetterboxdUrl(movieId)});
+  } else {
+    browser.tabs.update(tab.id!, {url: toLetterboxdUrl(movieId)});
+  }
+}
+
+async function initMenus(): Promise<void> {
+  const stored = await browser.storage.local.get(['openInNewTab', 'autoRedirect']);
+  browser.menus.create({
+    id: 'open-in-new-tab',
+    title: 'Open in new tab',
+    type: 'checkbox',
+    checked: stored.openInNewTab !== false,
+    contexts: ['browser_action'],
+  });
+  browser.menus.create({
+    id: 'auto-redirect',
+    title: 'Auto redirect',
+    type: 'checkbox',
+    checked: !!stored.autoRedirect,
+    contexts: ['browser_action'],
+  });
+}
+
 // Fired by letterboxdContent.ts once the Letterboxd page has loaded, so we can update the icon
 browser.runtime.onMessage.addListener(async (msg: object, sender: browser.runtime.MessageSender) => {
   const {type, imdbUrl} = msg as {type?: string; imdbUrl?: string | null};
@@ -68,4 +119,15 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
 browser.tabs.onActivated.addListener(() => updateIconForActiveTab());
 browser.windows.onFocusChanged.addListener(() => updateIconForActiveTab());
 
+browser.browserAction.onClicked.addListener(handleIconClick);
+
+browser.menus.onClicked.addListener((info) => {
+  if (info.menuItemId === 'open-in-new-tab') {
+    browser.storage.local.set({openInNewTab: info.checked});
+  } else if (info.menuItemId === 'auto-redirect') {
+    browser.storage.local.set({autoRedirect: info.checked});
+  }
+});
+
 updateIconForActiveTab();
+initMenus();

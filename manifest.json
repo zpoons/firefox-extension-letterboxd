@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "goto letterboxd",
-  "version": "1.1.0",
+  "version": "1.2.0",
 
   "description": "Provides a button to redirect to letterboxd.com when on an IMDb movie page.\nIncludes an optional auto redirect feature.",
 
@@ -11,8 +11,7 @@
   },
   "browser_action": {
     "default_icon": "favicon.ico",
-    "default_title": "url not supported",
-    "default_popup": "popup.html"
+    "default_title": "url not supported"
   },
   "content_scripts": [
     {
@@ -25,6 +24,7 @@
   },
   "permissions": [
     "tabs",
-    "storage"
+    "storage",
+    "menus"
   ]
 }
