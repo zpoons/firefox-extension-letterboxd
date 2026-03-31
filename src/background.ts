@@ -102,7 +102,22 @@ async function initMenus(): Promise<void> {
 
 // Fired by letterboxdContent.ts once the Letterboxd page has loaded, so we can update the icon
 browser.runtime.onMessage.addListener(async (msg: object, sender: browser.runtime.MessageSender) => {
-  const {type, imdbUrl} = msg as {type?: string; imdbUrl?: string | null};
+  const {type, imdbUrl, movieId} = msg as {type?: string; imdbUrl?: string | null; movieId?: string};
+
+  if (type === 'go-to-imdb' && movieId && sender.tab?.id !== undefined) {
+    const stored = await browser.storage.local.get(['openInNewTab']);
+    const openInNewTab = stored.openInNewTab !== false;
+    const path = movieId.startsWith('nm') ? 'name' : 'title';
+    const url = `https://www.imdb.com/${path}/${movieId}/`;
+    await browser.storage.local.set({skipNextRedirectForMovie: movieId});
+    if (openInNewTab) {
+      browser.tabs.create({active: true, url});
+    } else {
+      browser.tabs.update(sender.tab.id, {url});
+    }
+    return Promise.resolve(null);
+  }
+
   if (type !== 'letterboxd-page-loaded' || sender.tab?.id === undefined) return Promise.resolve(null);
 
   const activeTab = await getActiveTab();
