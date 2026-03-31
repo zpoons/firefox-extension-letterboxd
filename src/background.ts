@@ -104,6 +104,19 @@ async function initMenus(): Promise<void> {
 browser.runtime.onMessage.addListener(async (msg: object, sender: browser.runtime.MessageSender) => {
   const {type, imdbUrl, movieId} = msg as {type?: string; imdbUrl?: string | null; movieId?: string};
 
+  if (type === 'go-to-letterboxd' && sender.tab?.id !== undefined) {
+    const movieId2 = getMovieId(sender.tab.url ?? '');
+    if (!movieId2) return Promise.resolve(null);
+    const stored2 = await browser.storage.local.get(['openInNewTab']);
+    const openInNewTab2 = stored2.openInNewTab !== false;
+    if (openInNewTab2) {
+      browser.tabs.create({active: true, url: toLetterboxdUrl(movieId2)});
+    } else {
+      browser.tabs.update(sender.tab.id, {url: toLetterboxdUrl(movieId2)});
+    }
+    return Promise.resolve(null);
+  }
+
   if (type === 'go-to-imdb' && movieId && sender.tab?.id !== undefined) {
     const stored = await browser.storage.local.get(['openInNewTab']);
     const openInNewTab = stored.openInNewTab !== false;

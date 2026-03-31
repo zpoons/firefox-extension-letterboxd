@@ -17,8 +17,13 @@
     {
       "matches": ["https://letterboxd.com/*"],
       "js": ["dist/content.js"]
+    },
+    {
+      "matches": ["https://www.imdb.com/*"],
+      "js": ["dist/utilities.js", "dist/imdb-content.js"]
     }
   ],
+  "web_accessible_resources": ["favicon.ico"],
   "background": {
     "scripts": ["dist/utilities.js", "dist/background.js"]
   },
