@@ -1,11 +1,15 @@
 # Firefox extension: goto letterboxd
 
-When on a IMDB page the addon enables:
-* a button to redirect to letterboxd page
-* (optional) auto redirect to letterboxd page
+Adds functionaility to easier go to a Letterboxd page while on an IMDb page.
 
-When on a letterboxd page:
-* go to IMDB page (will pause auto redirect for that movie)
+Features:
+
+* (left) clicking the addon button while on an IMDb page will redirect to the matching letterboxd page
+* Adds a small icon on the IMDb page (next to the logo) with same redirect as the addon button
+* (optional) auto redirect behavior
+* Adds a 'go to IMDb' button when an item can't be found on letterboxd (this will pause the auto redirect for that item)
+
+For options, right click the addon icon in the extensions toolbar.
 
 ## build
 
