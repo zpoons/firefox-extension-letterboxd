@@ -13,6 +13,7 @@ browser.runtime.sendMessage({type: 'letterboxd-page-loaded', imdbUrl: getImdbLin
 
 // Inject a "Go to IMDb" button on Letterboxd "not found" pages (e.g. /imdb/tt1234567/)
 function tryInjectNotFoundButton(): void {
+  if (document.getElementById('lbd-imdb-btn')) return;
   const match = window.location.pathname.match(/^\/imdb\/([a-zA-Z0-9]+)\/?$/);
   if (!match) return;
 
@@ -29,6 +30,7 @@ function tryInjectNotFoundButton(): void {
 
   const movieId = match[1];
   const btn = document.createElement('button');
+  btn.id = 'lbd-imdb-btn';
   btn.textContent = 'View on IMDb';
   btn.style.cssText = [
     'background-color:#F5C518',
