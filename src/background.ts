@@ -5,7 +5,7 @@ function setActionIcon(tooltip: string | undefined): void {
 
 async function getTooltipForTab(tab: browser.tabs.Tab): Promise<string | undefined> {
   const url = tab.url ?? '';
-  const movieId = getMovieId(url);
+  const movieId = getTitleId(url);
   if (movieId) return `Go to ${toLetterboxdUrl(movieId)}`;
 
   if (isLetterboxdPage(url) && tab.id !== undefined) {
@@ -27,7 +27,7 @@ async function updateIconForActiveTab(): Promise<void> {
 }
 
 async function handleTabUrlChange(tabId: number, url: string): Promise<void> {
-  const movieId = getMovieId(url);
+  const movieId = getTitleId(url);
 
   const activeTab = await getActiveTab();
   if (activeTab?.id === tabId) {

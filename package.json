@@ -4,7 +4,8 @@
   "description": "",
   "main": "asdf.js",
   "scripts": {
-    "dev": "npx tsc -w",
+    "dev": "tsc -w",
+    "build": "tsc",
     "publish": "node build.js",
     "publish:patch": "node build.js patch",
     "publish:minor": "node build.js minor",
