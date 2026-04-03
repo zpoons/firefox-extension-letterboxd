@@ -13,6 +13,15 @@ For options, right click the addon icon in the extensions toolbar.
 
 ## build
 
-run `npm i`
+run `npm i` to install dependencies
 
-run `npx tsc` to compile
+```bash
+npm run dev             # watch mode (recompiles on save)
+
+npm run publish         # compile + zip at current version
+npm run publish:patch   # bump patch (1.3.0 → 1.3.1), compile + zip
+npm run publish:minor   # bump minor (1.3.0 → 1.4.0), compile + zip
+npm run publish:major   # bump major (1.3.0 → 2.0.0), compile + zip
+```
+
+Produces `goto-letterboxd-src-{version}.zip` (source) and `goto-letterboxd-update-{version}.zip` (compiled extension for Firefox).

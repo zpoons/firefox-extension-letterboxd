@@ -4,12 +4,17 @@
   "description": "",
   "main": "asdf.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx tsc -w",
+    "publish": "node build.js",
+    "publish:patch": "node build.js patch",
+    "publish:minor": "node build.js minor",
+    "publish:major": "node build.js major"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "archiver": "^7.0.1",
     "typescript": "^3.7.5",
     "web-ext-types": "^3.2.1"
   }
