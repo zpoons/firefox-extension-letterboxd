@@ -1,5 +1,5 @@
 function setActionIcon(tooltip: string | undefined): void {
-  browser.browserAction.setIcon({path: {'48': tooltip ? 'favicon.ico' : 'favicon-grey.ico'}});
+  browser.browserAction.setIcon({path: {'48': tooltip ? 'favicon-48.png' : 'favicon-grey-48.png', '96': tooltip ? 'favicon-96.png' : 'favicon-grey-96.png'}});
   browser.browserAction.setTitle({title: tooltip ?? 'Not a supported URL'});
 }
 

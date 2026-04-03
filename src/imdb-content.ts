@@ -21,7 +21,7 @@ function injectLetterboxdButton(): void {
   ].join(';');
 
   const img = document.createElement('img');
-  img.src = browser.runtime.getURL('favicon.ico');
+  img.src = browser.runtime.getURL('favicon-48.png');
   img.width = 24;
   img.height = 24;
   img.alt = 'Letterboxd';
