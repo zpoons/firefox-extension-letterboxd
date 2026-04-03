@@ -5,10 +5,9 @@
   "description": "Navigate between IMDb and Letterboxd pages. Includes auto-redirect and in-page buttons.",
   "browser_specific_settings": {
     "gecko": {
-      "id": "goto-letterboxd@local",
+      "id": "{7e918951-2514-4438-b7fb-a6e376cd6288}",
       "data_collection_permissions": {
-        "required": [],
-        "optional": []
+        "required": ["none"]
       }
     }
   },
